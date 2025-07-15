@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:weather_app/screens/home/homescreen_controller.dart';
 import 'package:weather_app/services/location/location_controller.dart';
 import 'package:weather_app/widgets/bottom_navigation/bottom_nav.dart';
+import 'package:weather_app/widgets/weather_sheet/weather_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
+
           Center(
             child: Obx(() {
               if (locationController.isLoading.value ||
@@ -33,63 +35,69 @@ class HomeScreen extends StatelessWidget {
                 return const CircularProgressIndicator(color: Colors.white);
               }
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    locationController.address.value,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${weatherController.tempC}°',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 90,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'SanFrancisco',
-                    ),
-                  ),
-                  Text(
-                    weatherController.condition,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
+              return SizedBox(
+                height: MediaQuery.of(context).size.height * 0.75,
+                child: SingleChildScrollView(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'H: ${weatherController.tempHigh}°',
-                        style: const TextStyle(color: Colors.white, fontSize: 18),
+                        locationController.address.value,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
-                      const SizedBox(width: 20),
+                      const SizedBox(height: 10),
                       Text(
-                        'L: ${weatherController.tempLow}°',
-                        style: const TextStyle(color: Colors.white, fontSize: 18),
+                        '${weatherController.tempC}°',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 90,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'SanFrancisco',
+                        ),
+                      ),
+                      Text(
+                        weatherController.condition,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'H: ${weatherController.tempHigh}°',
+                            style: const TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          const SizedBox(width: 20),
+                          Text(
+                            'L: ${weatherController.tempLow}°',
+                            style: const TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: 450,
+                        height: 450,
+                        child: Image.asset(
+                          'assets/png/house.png',
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 450,
-                    height: 450,
-                    child: Image.asset(
-                      'assets/png/house.png',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ],
+                ),
               );
             }),
           ),
+          WeatherBottomSheet(),
         ],
       ),
       bottomNavigationBar: BottomNavigate(),
