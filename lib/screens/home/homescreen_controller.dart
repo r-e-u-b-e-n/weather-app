@@ -3,10 +3,10 @@ import 'package:weather_app/services/api/weather_api.dart';
 
 class HomescreenController extends GetxController {
   var isLoading = true.obs;
-  var tempC = '';
-  var tempHigh = '';
-  var tempLow = '';
-  var condition = '';
+  var tempC = ''.obs;
+  var tempHigh = ''.obs;
+  var tempLow = ''.obs;
+  var condition = ''.obs;
 
   final WeatherApi weatherApi = WeatherApi();
 
@@ -19,17 +19,19 @@ class HomescreenController extends GetxController {
   void fetchWeather() async {
     isLoading.value = true;
 
-    final data = await weatherApi.getForecastWeather();
-    if (data != null) {
-      final current = data['current'];
-      final forecast = data['forecast']['forecastday'][0]['day'];
+    try {
+      final data = await weatherApi.getForecastWeather();
+      if (data != null) {
+        final current = data['current'];
+        final forecast = data['forecast']['forecastday'][0]['day'];
 
-      tempC = current['temp_c'].toString();
-      condition = current['condition']['text'];
-      tempHigh = forecast['maxtemp_c'].toString();
-      tempLow = forecast['mintemp_c'].toString();
+        tempC.value = current['temp_c'].toString();
+        condition.value = current['condition']['text'];
+        tempHigh.value = forecast['maxtemp_c'].toString();
+        tempLow.value = forecast['mintemp_c'].toString();
+      }
+    } finally {
+      isLoading.value = false;
     }
-
-    isLoading.value = false;
   }
 }

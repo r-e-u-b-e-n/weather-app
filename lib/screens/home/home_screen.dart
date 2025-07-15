@@ -36,7 +36,6 @@ class HomeScreen extends StatelessWidget {
               }
 
               return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.75,
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        weatherController.condition,
+                        weatherController.condition.value,
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 25,

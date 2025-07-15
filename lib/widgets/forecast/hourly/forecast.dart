@@ -24,10 +24,7 @@ class HourlyForecast extends StatelessWidget {
       elevation: 10,
       shadowColor: Colors.black,
       gradient: LinearGradient(
-        colors: [
-          Color(0xFF5936B4),
-          Color(0xFF362A84),
-        ],
+        colors: [Color(0xFF5936B4), Color(0xFF362A84)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),
@@ -44,11 +41,7 @@ class HourlyForecast extends StatelessWidget {
                 fontFamily: 'SanFrancisco',
               ),
             ),
-            Image.asset(
-              weatherImg,
-              height: 50,
-              fit: BoxFit.contain,
-            ),
+            Image.asset(weatherImg, height: 50, fit: BoxFit.contain),
             Text(
               temperature,
               style: const TextStyle(

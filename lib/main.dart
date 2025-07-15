@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:weather_app/routes/app_routes.dart';
+import 'package:weather_app/services/location/location_controller.dart';
 
 
 void main() async{
-  await GetStorage.init();
+  final locationController = Get.put(LocationController());
+  await locationController.fetchAddress();
   runApp(const MyApp());
 }
 
