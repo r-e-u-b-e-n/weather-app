@@ -10,18 +10,8 @@ class HomeScreen extends StatelessWidget {
   final LocationController locationController = Get.put(LocationController());
   final HomescreenController weatherController = Get.put(HomescreenController());
 
-
   @override
   Widget build(BuildContext context) {
-    ever(locationController.address, (String location) {
-      if (location.isNotEmpty &&
-          location != 'Location services are off' &&
-          !location.startsWith('Permission') &&
-          !location.startsWith('Error')) {
-        weatherController.fetchWeather(location);
-      }
-    });
-
     return Scaffold(
       extendBody: true,
       body: Stack(
@@ -54,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Text(
                     '${weatherController.tempC}°',
                     style: const TextStyle(

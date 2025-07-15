@@ -1,35 +1,35 @@
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:weather_app/services/api/weather_api.dart';
 
 class HomescreenController extends GetxController {
-  final WeatherApi weatherService = WeatherApi();
-  final GetStorage storage = GetStorage();
+  var isLoading = true.obs;
+  var tempC = '';
+  var tempHigh = '';
+  var tempLow = '';
+  var condition = '';
 
-  static const storageKey = 'weatherData';
+  final WeatherApi weatherApi = WeatherApi();
 
-  var isLoading = false.obs;
-  var error = ''.obs;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchWeather();
+  }
 
-  Future<void> fetchWeather(String location) async {
+  void fetchWeather() async {
     isLoading.value = true;
-    error.value = '';
 
-    final data = await weatherService.getForecastWeather(location);
-
+    final data = await weatherApi.getForecastWeather();
     if (data != null) {
-      storage.write(storageKey, data);
-    } else {
-      error.value = 'Could not load weather';
+      final current = data['current'];
+      final forecast = data['forecast']['forecastday'][0]['day'];
+
+      tempC = current['temp_c'].toString();
+      condition = current['condition']['text'];
+      tempHigh = forecast['maxtemp_c'].toString();
+      tempLow = forecast['mintemp_c'].toString();
     }
 
     isLoading.value = false;
   }
-
-  Map<String, dynamic> get weather => storage.read(storageKey);
-
-  String get tempC => weather['current']?['temp_c']?.toString() ?? 'N/A';
-  String get condition => weather['current']?['condition']?['text'] ?? 'N/A';
-  String get tempHigh => weather['forecast']?['forecastday']?[0]?['day']?['maxtemp_c']?.toString() ?? '--';
-  String get tempLow => weather['forecast']?['forecastday']?[0]?['day']?['mintemp_c']?.toString() ?? '--';
 }
