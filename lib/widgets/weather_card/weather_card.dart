@@ -26,7 +26,6 @@ class WeatherCard extends StatelessWidget {
         height: 200,
         child: Stack(
           children: [
-            // Background SVG card
             Positioned.fill(
               child: SvgPicture.asset(
                 'assets/svg/card.svg',
@@ -34,7 +33,7 @@ class WeatherCard extends StatelessWidget {
               ),
             ),
 
-            // Weather Info Text
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Column(
