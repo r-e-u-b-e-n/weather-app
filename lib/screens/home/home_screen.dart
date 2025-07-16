@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weather_app/constants/image_path.dart';
 import 'package:weather_app/screens/home/homescreen_controller.dart';
 import 'package:weather_app/services/location/location_controller.dart';
 import 'package:weather_app/widgets/bottom_navigation/bottom_nav.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/png/homescreen.png'),
+                image: AssetImage(ImageAssets.background),
                 fit: BoxFit.cover,
               ),
             ),
@@ -86,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                         width: 450,
                         height: 450,
                         child: Image.asset(
-                          'assets/png/house.png',
+                          ImageAssets.house,
                           fit: BoxFit.contain,
                         ),
                       ),

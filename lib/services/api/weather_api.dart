@@ -25,7 +25,8 @@ class WeatherApi {
         queryParameters: {
           'key': apiKey,
           'q': location,
-          'days': 1,
+          'days': 7,
+          'aqi': 'yes'
         },
       );
 
@@ -37,4 +38,24 @@ class WeatherApi {
     }
     return null;
   }
+
+
+  Future<List<dynamic>?> searchCities(String query) async {
+    try {
+      final response = await dio.get(
+        '$_baseUrl/search.json',
+        queryParameters: {
+          'key': apiKey,
+          'q': query,
+        },
+      );
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (e) {
+      print('Weather API Error (search): $e');
+    }
+    return null;
+  }
+
 }

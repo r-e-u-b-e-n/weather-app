@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:glass_kit/glass_kit.dart';
-import 'package:weather_app/widgets/forecast/hourly/forecast.dart';
+import 'package:weather_app/widgets/forecast/hourly/hourlyweather_list.dart';
+import 'package:weather_app/widgets/temp_details/air_quality.dart';
+import 'package:weather_app/widgets/temp_details/sunrise.dart';
+import 'package:weather_app/widgets/temp_details/uv_index.dart';
 
 class WeatherBottomSheet extends StatelessWidget {
   const WeatherBottomSheet({super.key});
@@ -9,17 +12,17 @@ class WeatherBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       initialChildSize: 0.3,
-      minChildSize: 0.1,
-      maxChildSize: 1,
+      minChildSize: 0.2,
+      maxChildSize: 0.85,
       builder: (BuildContext context, ScrollController scrollController) {
         return GlassContainer.frostedGlass(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
           blur: 20,
           elevation: 3,
           gradient: LinearGradient(
             colors: [
-              Color(0xFF5936B4).withOpacity(0.6),
-              Color(0xFF362A84).withOpacity(0.5),
+              const Color(0xFF5936B4).withOpacity(0.6),
+              const Color(0xFF362A84).withOpacity(0.5),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -34,13 +37,13 @@ class WeatherBottomSheet extends StatelessWidget {
           ),
           child: ListView(
             controller: scrollController,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       'Hourly Forecast',
                       style: TextStyle(
@@ -61,49 +64,33 @@ class WeatherBottomSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: const [
-                    HourlyForecast(
-                      time: "12 AM",
-                      temperature: "19°",
-                      weatherImg: "assets/icons/sunny.png",
-                    ),
-                    SizedBox(width: 20),
-                    HourlyForecast(
-                      time: "Now",
-                      temperature: "19°",
-                      weatherImg: "assets/icons/sunny.png",
-                    ),
-                    SizedBox(width: 20),
-                    HourlyForecast(
-                      time: "2 AM",
-                      temperature: "18°",
-                      weatherImg: "assets/icons/rainy.png",
-                    ),
-                    SizedBox(width: 20),
-                    HourlyForecast(
-                      time: "3 AM",
-                      temperature: "19°",
-                      weatherImg: "assets/icons/rainy.png",
-                    ),
-                    SizedBox(width: 20),
-                    HourlyForecast(
-                      time: "4 AM",
-                      temperature: "19°",
-                      weatherImg: "assets/icons/rainy.png",
-                    ),
-                    SizedBox(width: 20),
-                    HourlyForecast(
-                      time: "4 AM",
-                      temperature: "19°",
-                      weatherImg: "assets/icons/rainy.png",
-                    ),
-                  ],
-                ),
+              const HourlyForecastList(),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 180,
+                child: AirQualityWidget(),
               ),
+              const SizedBox(height: 16),
+              GridView.count(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 1.3,
+                children: [
+                  UvIndex(),
+                  Sunrise(),
+                  UvIndex(),
+                  Sunrise(),
+                  UvIndex(),
+                  Sunrise(),
+                  UvIndex(),
+                  Sunrise(),
+                ],
+              ),
+
             ],
           ),
         );
