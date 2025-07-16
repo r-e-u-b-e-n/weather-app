@@ -1,27 +1,21 @@
 import 'package:get/get.dart';
-import 'package:weather_app/services/api/weather_api.dart';
+import 'package:weather_app/services/api/search_api.dart';
 
+class SearchScreenController extends GetxController {
+  final SearchApi api = SearchApi();
 
-class SearchController extends GetxController {
-  final WeatherApi weatherApi = WeatherApi();
-
+  var isLoading = false.obs;
   var cityResults = <Map<String, dynamic>>[].obs;
-  var isSearching = false.obs;
 
-  Future<void> searchCity(String query) async {
+  void searchCity(String query) async {
     if (query.isEmpty) {
       cityResults.clear();
       return;
     }
 
-    isSearching.value = true;
-    try {
-      final results = await weatherApi.searchCities(query);
-      cityResults.value = results?.cast<Map<String, dynamic>>() ?? [];
-    } catch (e) {
-      cityResults.clear();
-    } finally {
-      isSearching.value = false;
-    }
+    isLoading.value = true;
+    final results = await api.searchCity(query);
+    cityResults.assignAll(results);
+    isLoading.value = false;
   }
 }

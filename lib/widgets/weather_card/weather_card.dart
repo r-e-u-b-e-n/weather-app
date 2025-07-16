@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_app/utils/weather_icon.dart';
 
 class WeatherCard extends StatelessWidget {
-  const WeatherCard({super.key});
+  final String temperature;
+  final String high;
+  final String low;
+  final String city;
+  final String condition;
+
+  const WeatherCard({
+    super.key,
+    required this.temperature,
+    required this.high,
+    required this.low,
+    required this.city,
+    required this.condition,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,51 +26,67 @@ class WeatherCard extends StatelessWidget {
         height: 200,
         child: Stack(
           children: [
+            // Background SVG card
             Positioned.fill(
-              child: SvgPicture.asset('assets/svg/card.svg', fit: BoxFit.cover),
+              child: SvgPicture.asset(
+                'assets/svg/card.svg',
+                fit: BoxFit.cover,
+              ),
             ),
+
+            // Weather Info Text
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-
-                children: const [
+                children: [
                   Text(
-                    "19°",
-                    style: TextStyle(
+                    temperature,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 48,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
-                    "H:24°  L:18°",
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    'H:$high  L:$low',
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    "Montreal, Canada",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
+                    city,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
                   ),
                 ],
               ),
             ),
+
             Positioned(
-              top: -60,
-              right: -10,
+              top: 0,
+              right: 10,
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/icons/rainy.png',
+                  Image.network(
+                    getWeatherIcon(condition),
                     width: 190,
                     height: 220,
                     fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.cloud, size: 100, color: Colors.white),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Mid Rain",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  Text(
+                    condition,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ],
               ),

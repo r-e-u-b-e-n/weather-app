@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:weather_app/screens/search/search_controller.dart';
 import 'package:weather_app/widgets/weather_card/weather_card.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -6,14 +8,22 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SearchScreenController());
+
     return Scaffold(
+      backgroundColor: const Color(0xFF1F1D47),
+      appBar: AppBar(
+        title: Text('Weather', style: TextStyle(color: Colors.white),),
+        backgroundColor: Color(0xFF1F1D47),
+      ),
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
+                onChanged: controller.searchCity,
                 decoration: InputDecoration(
                   hintText: 'Search for a city or airport',
                   hintStyle: const TextStyle(color: Colors.white70),
@@ -29,20 +39,44 @@ class SearchScreen extends StatelessWidget {
                 style: const TextStyle(color: Colors.white),
               ),
               const SizedBox(height: 20),
-              const WeatherCard(),
-              const SizedBox(height: 12),
-              const WeatherCard(),
-              const SizedBox(height: 12),
-              const WeatherCard(),
-              const SizedBox(height: 12),
-              const WeatherCard(),
-              const SizedBox(height: 12),
-              const WeatherCard(),
+
+              Expanded(
+                child: Obx(() {
+                  if (controller.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (controller.cityResults.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        "No city data",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: controller.cityResults.length,
+                    itemBuilder: (context, index) {
+                      final data = controller.cityResults[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: WeatherCard(
+                          temperature: '${data['current']['temp_c']}°',
+                          high: '22°',
+                          low: '22°',
+                          city: '${data['location']['name']}, ${data['location']['country']}',
+                          condition: data['current']['condition']['text'],
+                        ),
+                      );
+                    },
+                  );
+                }),
+              ),
             ],
           ),
         ),
       ),
-      backgroundColor: const Color(0xFF1F1D47),
     );
   }
 }
