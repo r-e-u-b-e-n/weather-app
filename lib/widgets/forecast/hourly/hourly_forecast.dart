@@ -24,7 +24,7 @@ class HourlyForecast extends StatelessWidget {
       elevation: 10,
       shadowColor: Colors.black,
       gradient: LinearGradient(
-        colors: [Color(0xFF5936B4), Color(0xFF362A84)],
+        colors: [Color(0xFF2E335A), Color(0xFF1C1B33)],
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/screens/search/search_controller.dart';
+import 'package:weather_app/widgets/current_weather/current_weather.dart';
 import 'package:weather_app/widgets/weather_card/weather_card.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -13,8 +14,9 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF1F1D47),
       appBar: AppBar(
-        title: Text('Weather', style: TextStyle(color: Colors.white),),
+        title: Text('Weather'),
         backgroundColor: Color(0xFF1F1D47),
+        foregroundColor: Colors.white,
       ),
       body: SafeArea(
         child: Padding(
@@ -47,11 +49,8 @@ class SearchScreen extends StatelessWidget {
                   }
 
                   if (controller.cityResults.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        "No city data",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    return Center(
+                      child: CurrentWeather(),
                     );
                   }
 

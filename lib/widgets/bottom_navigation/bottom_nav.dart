@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:weather_app/constants/image_path.dart';
 import 'package:weather_app/screens/search/search_screen.dart';
 
 class BottomNavigate extends StatelessWidget {
@@ -14,51 +15,44 @@ class BottomNavigate extends StatelessWidget {
         SizedBox(
           height: 80,
           child: SvgPicture.asset(
-            'assets/svg/buttons.svg',
+            NavigationAssets.bottomBar,
             fit: BoxFit.fill,
             width: double.infinity,
+
           ),
         ),
         Positioned(
-          bottom: 8,
+          bottom: -18,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const SizedBox(width: 40),
               GestureDetector(
                 onTap: () =>
-                    Get.to(() => SearchScreen()), // Navigate to location page
+                    Get.to(() => SearchScreen()),
                 child: SvgPicture.asset(
-                  'assets/svg/location.svg',
+                  NavigationAssets.locationIcon,
                   width: 25,
                   height: 25,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.white,
-                    BlendMode.srcIn,
-                  ),
                 ),
               ),
-              const SizedBox(width: 100),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(Icons.add, color: Colors.black, size: 32),
-              ),
-
-              const SizedBox(width: 100),
+              const SizedBox(width: 80),
               GestureDetector(
                 onTap: () => Get.to(() => SearchScreen()),
                 child: SvgPicture.asset(
-                  'assets/svg/list.svg',
+                  NavigationAssets.mainButton,
+                  width: 120,
+                  height: 120,
+                ),
+              ),
+
+              const SizedBox(width: 80),
+              GestureDetector(
+                onTap: () => Get.to(() => SearchScreen()),
+                child: SvgPicture.asset(
+                  NavigationAssets.listIcon,
                   width: 20,
                   height: 20,
-                  colorFilter: const ColorFilter.mode(
-                    Colors.white,
-                    BlendMode.srcIn,
-                  ),
                 ),
               ),
               const SizedBox(width: 30),

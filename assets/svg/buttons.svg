@@ -17,7 +17,7 @@
             <path d="M0 12C0 12 76.0769 27.9822 127 32C153.339 34.0782 168.554 35 195 35C221.446 35 235.661 34.0782 262 32C312.923 27.9822 390 12 390 12V100H0V12Z"/>
         </clipPath>
         <linearGradient id="paint0_linear_68_4384" x1="271.51" y1="12" x2="271.51" y2="100" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#3A3A6A"/>
+            <stop stop-color="#25244C"/>
             <stop offset="1" stop-color="#25244C"/>
         </linearGradient>
         <linearGradient id="paint1_linear_68_4384" x1="245.615" y1="100" x2="245.615" y2="0" gradientUnits="userSpaceOnUse">

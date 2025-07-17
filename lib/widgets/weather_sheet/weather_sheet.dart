@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:glass_kit/glass_kit.dart';
+import 'package:weather_app/screens/home/homescreen_controller.dart';
 import 'package:weather_app/widgets/forecast/hourly/hourlyweather_list.dart';
+import 'package:weather_app/widgets/forecast/weekly/weeklyweather_list.dart';
 import 'package:weather_app/widgets/temp_details/air_quality.dart';
+import 'package:weather_app/widgets/temp_details/feels_like.dart';
+import 'package:weather_app/widgets/temp_details/humidity.dart';
+import 'package:weather_app/widgets/temp_details/pressure.dart';
+import 'package:weather_app/widgets/temp_details/rainfall.dart';
 import 'package:weather_app/widgets/temp_details/sunrise.dart';
 import 'package:weather_app/widgets/temp_details/uv_index.dart';
+import 'package:weather_app/widgets/temp_details/wind.dart';
+import 'package:weather_app/widgets/temp_details/visibility.dart';
 
 class WeatherBottomSheet extends StatelessWidget {
-  const WeatherBottomSheet({super.key});
+  WeatherBottomSheet({super.key});
+
+  final HomescreenController controller = Get.find<HomescreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +30,18 @@ class WeatherBottomSheet extends StatelessWidget {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
           blur: 20,
           elevation: 3,
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [
-              const Color(0xFF5936B4).withOpacity(0.6),
-              const Color(0xFF362A84).withOpacity(0.5),
+              Color(0x995936B4),
+              Color(0x80362A84),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
-          borderGradient: LinearGradient(
+          borderGradient: const LinearGradient(
             colors: [
-              Colors.purple.withOpacity(0.4),
-              Colors.purple.withOpacity(0.2),
+              Color(0x669C27B0),
+              Color(0x339C27B0),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -39,58 +50,72 @@ class WeatherBottomSheet extends StatelessWidget {
             controller: scrollController,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Hourly Forecast',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+              Obx(() {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () => controller.toggle(false),
+                        child: Text(
+                          'Hourly Forecast',
+                          style: TextStyle(
+                            color: controller.showWeekly.value
+                                ? Colors.white54
+                                : Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Weekly Forecast',
-                      style: TextStyle(
-                        color: Colors.white54,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                      GestureDetector(
+                        onTap: () => controller.toggle(true),
+                        child: Text(
+                          'Weekly Forecast',
+                          style: TextStyle(
+                            color: controller.showWeekly.value
+                                ? Colors.white
+                                : Colors.white54,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                    ],
+                  ),
+                );
+              }),
               const SizedBox(height: 20),
-              const HourlyForecastList(),
+
+              // Show forecast based on toggle state
+              Obx(() {
+                return controller.showWeekly.value
+                    ? const WeeklyWeatherList()
+                    : const HourlyForecastList();
+              }),
+
               const SizedBox(height: 20),
-              SizedBox(
-                height: 180,
-                child: AirQualityWidget(),
-              ),
-              const SizedBox(height: 16),
+
+              SizedBox(height: 180, child: AirQualityWidget()),
+
               GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
                 crossAxisCount: 2,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
-                childAspectRatio: 1.3,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
                 children: [
                   UvIndex(),
                   Sunrise(),
-                  UvIndex(),
-                  Sunrise(),
-                  UvIndex(),
-                  Sunrise(),
-                  UvIndex(),
-                  Sunrise(),
+                  WindWidget(),
+                  Rainfall(),
+                  FeelsLike(),
+                  Humidity(),
+                  VisibilityCard(),
+                  PressureWidget(),
                 ],
               ),
-
             ],
           ),
         );

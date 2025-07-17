@@ -17,25 +17,29 @@ class AirQualityWidget extends StatelessWidget {
       final label = getAirQualityLabel(airQualityValue);
 
       return GlassContainer(
-        height: double.infinity,
+        height: 300,
         width: double.infinity,
         borderRadius: BorderRadius.circular(22),
         borderColor: Colors.white38,
         blur: 10,
         elevation: 10,
         shadowColor: Colors.black,
-        color: Color(0xFF48319D),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF2E335A), Color(0xFF1C1B33)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Air Quality",
+                "AIR QUALITY",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF3C3C43),
+                  color: Colors.white24,
                 ),
               ),
               const SizedBox(height: 8),

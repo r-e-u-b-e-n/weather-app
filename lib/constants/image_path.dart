@@ -13,3 +13,13 @@ class IconsAssets {
   static const String windy = '$_iconPath/windy.png';
 
 }
+
+class NavigationAssets {
+  static const String _navigationPath = 'assets/svg';
+
+  static const String bottomBar = '$_navigationPath/buttons.svg';
+  static const String mainButton = '$_navigationPath/plus.svg';
+  static const String listIcon = '$_navigationPath/list.svg';
+  static const String locationIcon = '$_navigationPath/location.svg';
+
+}

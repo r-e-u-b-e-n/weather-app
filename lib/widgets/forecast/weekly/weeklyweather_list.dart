@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/screens/home/homescreen_controller.dart';
-import 'package:weather_app/utils/time_format.dart';
+import 'package:weather_app/utils/date_to_day.dart';
 import 'package:weather_app/utils/weather_icon.dart';
-import 'package:weather_app/widgets/forecast/hourly/hourly_forecast.dart';
+import 'package:weather_app/widgets/forecast/weekly/weekly_forecast.dart';
 
-class HourlyForecastList extends StatelessWidget {
-  const HourlyForecastList({super.key});
+class WeeklyWeatherList extends StatelessWidget {
+  const WeeklyWeatherList({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<HomescreenController>();
 
     return Obx(() {
-      if (controller.hourlyForecast.isEmpty) {
+      if (controller.weeklyForecast.isEmpty) {
         return const Center(child: CircularProgressIndicator());
       }
 
@@ -21,13 +21,13 @@ class HourlyForecastList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Row(
-          children: controller.hourlyForecast.take(12).map((hour) {
+          children: controller.weeklyForecast.take(7).map((week) {
             return Padding(
               padding: const EdgeInsets.only(right: 20),
-              child: HourlyForecast(
-                time: formatTime(hour.time),
-                temperature: '${hour.tempC.toInt()}°',
-                weatherImg: getWeatherIcon(hour.condition),
+              child: WeeklyForecast(
+                day: dateToDay(week.day),
+                temperature: '${week.maxTempC.toInt()}°',
+                weatherImg: getWeatherIcon(week.condition),
               ),
             );
           }).toList(),

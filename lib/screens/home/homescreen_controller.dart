@@ -20,6 +20,7 @@ class HomescreenController extends GetxController {
   var humidity = ''.obs;
   var visibility = ''.obs;
   var pressure = ''.obs;
+  var showWeekly = false.obs;
 
   var hourlyForecast = <HourlyWeather>[].obs;
   var weeklyForecast = <WeeklyWeather>[].obs;
@@ -30,6 +31,10 @@ class HomescreenController extends GetxController {
   void onInit() {
     super.onInit();
     fetchWeather();
+  }
+
+  void toggle(bool value) {
+    showWeekly.value = value;
   }
 
   void fetchWeather() async {
@@ -63,14 +68,13 @@ class HomescreenController extends GetxController {
                 .map((e) => HourlyWeather.fromJson(e))
                 .toList();
 
-        // weeklyForecast.value = (data['weekly'] as List)
-        //     .map((e) => WeeklyWeather.fromJson(e))
-        //     .toList();
+        weeklyForecast.value = (data['forecast']['forecastday'] as List)
+            .map((e) => WeeklyWeather.fromJson(e))
+            .toList();
       }
     } catch (e) {
       print(e);
     }
-
     isLoading.value = false;
   }
 }
