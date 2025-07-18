@@ -22,8 +22,8 @@ class WeatherCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 390,
-        height: 200,
+        width: 370,
+        height: 190,
         child: Stack(
           children: [
             Positioned.fill(

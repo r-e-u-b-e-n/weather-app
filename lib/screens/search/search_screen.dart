@@ -15,10 +15,15 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF1F1D47),
       appBar: AppBar(
-        title: Text('Weather'),
-        backgroundColor: Color(0xFF1F1D47),
+        backgroundColor: const Color(0xFF1F1D47),
         foregroundColor: Colors.white,
+        title: const Text('Weather'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Get.back(),
+        ),
       ),
+
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 30),

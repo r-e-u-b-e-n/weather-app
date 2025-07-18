@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/constants/image_path.dart';
-import 'package:weather_app/screens/search/search_screen.dart';
 
 class BottomNavigate extends StatelessWidget {
   const BottomNavigate({super.key});
@@ -18,7 +17,6 @@ class BottomNavigate extends StatelessWidget {
             NavigationAssets.bottomBar,
             fit: BoxFit.fill,
             width: double.infinity,
-
           ),
         ),
         Positioned(
@@ -28,8 +26,7 @@ class BottomNavigate extends StatelessWidget {
             children: [
               const SizedBox(width: 40),
               GestureDetector(
-                onTap: () =>
-                    Get.to(() => SearchScreen()),
+                onTap: () => Get.toNamed('/search'),
                 child: SvgPicture.asset(
                   NavigationAssets.locationIcon,
                   width: 25,
@@ -38,7 +35,7 @@ class BottomNavigate extends StatelessWidget {
               ),
               const SizedBox(width: 80),
               GestureDetector(
-                onTap: () => Get.to(() => SearchScreen()),
+                onTap: () => Get.toNamed('/search'),
                 child: SvgPicture.asset(
                   NavigationAssets.mainButton,
                   width: 120,
@@ -48,7 +45,7 @@ class BottomNavigate extends StatelessWidget {
 
               const SizedBox(width: 80),
               GestureDetector(
-                onTap: () => Get.to(() => SearchScreen()),
+                onTap: () => Get.toNamed('/search'),
                 child: SvgPicture.asset(
                   NavigationAssets.listIcon,
                   width: 20,

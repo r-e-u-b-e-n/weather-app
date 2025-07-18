@@ -36,7 +36,6 @@ class CurrentWeather extends StatelessWidget {
             style: const TextStyle(
               color: Colors.white,
               fontSize: 90,
-              fontWeight: FontWeight.w400,
               fontFamily: 'SanFrancisco',
             ),
           ),

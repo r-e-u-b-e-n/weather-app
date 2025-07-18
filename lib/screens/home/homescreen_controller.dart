@@ -50,6 +50,7 @@ class HomescreenController extends GetxController {
     isLoading.value = true;
 
     final data = await weatherApi.getForecastWeather();
+
     if (data != null) {
       final current = data['current'];
       final forecast = data['forecast']['forecastday'][0]['day'];

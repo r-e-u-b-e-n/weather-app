@@ -9,13 +9,19 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await ApiKeyService.init();
-  final locationController = Get.put(LocationController());
-  await locationController.fetchAddress();
-  FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  runApp(const MyApp());
+
+  try {
+    await Firebase.initializeApp();
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+    await ApiKeyService.init();
+    final locationController = Get.put(LocationController());
+    await locationController.fetchAddress();
+    FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
+    runApp(const MyApp());
+  } catch (e, stackTrace) {
+    await FirebaseCrashlytics.instance.recordError(e, stackTrace);
+
+  }
 }
 
 class MyApp extends StatelessWidget {
