@@ -34,13 +34,19 @@ class AirQualityWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "AIR QUALITY",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white24,
-                ),
+              Row(
+                children: const [
+                  Icon(Icons.hexagon_sharp, size: 16, color: Colors.white54),
+                  SizedBox(width: 6),
+                  Text(
+                    "AIR QUALITY",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white24,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
               Text(

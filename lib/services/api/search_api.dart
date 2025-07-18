@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:weather_app/api_key.dart';
+import 'package:weather_app/middleware/fetch_api.dart';
 
 class SearchApi {
   final Dio dio = Dio();
   final String _baseUrl = 'http://api.weatherapi.com/v1';
-  final String apiKey = ApiKeys().weatherApi;
+  final String apiKey = ApiKeyService.weatherApiKey;
 
   Future<List<String>> getCities(String query) async {
     List<String> cities = [];

@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:weather_app/api_key.dart';
+import 'package:weather_app/middleware/fetch_api.dart';
 import 'package:weather_app/services/location/location_controller.dart';
 import 'package:get/get.dart';
 
 class WeatherApi {
   final Dio dio = Dio();
   final String _baseUrl = 'http://api.weatherapi.com/v1';
-  final String apiKey = ApiKeys().weatherApi;
+  final String apiKey = ApiKeyService.weatherApiKey;
 
   final LocationController locationController = Get.find();
 

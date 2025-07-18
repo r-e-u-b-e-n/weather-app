@@ -7,6 +7,7 @@ import 'package:weather_app/widgets/weather_card/weather_card.dart';
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SearchScreenController());

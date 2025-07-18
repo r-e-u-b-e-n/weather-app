@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weather_app/constants/image_path.dart';
+import 'package:weather_app/screens/home/homescreen_controller.dart';
 import 'package:weather_app/widgets/bottom_navigation/bottom_nav.dart';
 import 'package:weather_app/widgets/current_weather/current_weather.dart';
 import 'package:weather_app/widgets/weather_sheet/weather_sheet.dart';
@@ -9,13 +11,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomescreenController controller = Get.put(HomescreenController());
+
     return Scaffold(
       extendBody: true,
       body: Stack(
         children: [
           Container(
-            width: double.infinity,
-            height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(ImageAssets.background),
@@ -27,17 +29,13 @@ class HomeScreen extends StatelessWidget {
           Center(
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CurrentWeather(),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: 450,
                     height: 450,
-                    child: Image.asset(
-                      ImageAssets.house,
-                      fit: BoxFit.contain,
-                    ),
+                    child: Image.asset(ImageAssets.house),
                   ),
                 ],
               ),
@@ -47,7 +45,23 @@ class HomeScreen extends StatelessWidget {
           WeatherBottomSheet(),
         ],
       ),
-      bottomNavigationBar: BottomNavigate(),
+
+      bottomNavigationBar: Obx(() {
+        final isVisible = controller.showBottomNav.value;
+
+        return AnimatedSlide(
+          duration: const Duration(milliseconds: 300),
+          offset: isVisible ? Offset.zero : const Offset(0, 1),
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: isVisible ? 1.0 : 0.0,
+            child: IgnorePointer(
+              ignoring: !isVisible,
+              child: BottomNavigate(),
+            ),
+          ),
+        );
+      }),
     );
   }
 }
