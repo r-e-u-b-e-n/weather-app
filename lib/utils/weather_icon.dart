@@ -6,5 +6,6 @@ String getWeatherIcon(String condition) {
   if (condition.contains('sunny')) return IconsAssets.sunny;
   if (condition.contains('rainy')) return IconsAssets.rainy;
   if (condition.contains('cloud')) return IconsAssets.windy;
-  return IconsAssets.rainy;
+  return IconsAssets.sunny;
+
 }

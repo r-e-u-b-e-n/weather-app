@@ -72,7 +72,7 @@ class Rainfall extends StatelessWidget {
 
               const Spacer(),
 
-              // Expected next 24h
+
               Text(
                 "$expectedRain mm expected in next 24h.",
                 style: const TextStyle(

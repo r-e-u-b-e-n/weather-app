@@ -33,7 +33,6 @@ class WeatherCard extends StatelessWidget {
               ),
             ),
 
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Column(
@@ -68,18 +67,17 @@ class WeatherCard extends StatelessWidget {
             ),
 
             Positioned(
-              top: 0,
-              right: 10,
+              top: -40,
+              right: 0,
               child: Column(
                 children: [
-                  Image.network(
+                  Image.asset(
                     getWeatherIcon(condition),
-                    width: 190,
-                    height: 220,
+                    width: 140,
+                    height: 200,
                     fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.cloud, size: 100, color: Colors.white),
                   ),
-                  const SizedBox(height: 8),
+
                   Text(
                     condition,
                     style: const TextStyle(
