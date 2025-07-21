@@ -17,7 +17,7 @@ class UvIndex extends StatelessWidget {
       final label = getAirQualityLabel(uvValue);
 
       return GlassContainer(
-        height: 260,
+        height: 180,
         width: double.infinity,
         borderRadius: BorderRadius.circular(22),
         borderColor: Colors.white38,

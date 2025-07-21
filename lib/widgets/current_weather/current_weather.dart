@@ -45,7 +45,9 @@ class CurrentWeather extends StatelessWidget {
               color: Colors.white70,
               fontSize: 25,
               fontWeight: FontWeight.bold,
+
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 10),
           Row(

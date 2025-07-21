@@ -18,7 +18,7 @@ class WindWidget extends StatelessWidget {
       final windDegrees = convertDirectionToDegrees(windDir);
 
       return GlassContainer(
-        height: 300,
+        height: 180,
         width: double.infinity,
         borderRadius: BorderRadius.circular(22),
         borderColor: Colors.white38,
