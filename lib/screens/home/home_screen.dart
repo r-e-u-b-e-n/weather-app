@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   SizedBox(
                     width: 450,
-                    height: 451,
+                    height: 452,
                     child: Image.asset(ImageAssets.house),
                   ),
                 ],
